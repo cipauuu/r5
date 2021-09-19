@@ -5,7 +5,7 @@
     <b-container fluid>
       <b-row>
         <b-col cols="3"><Kategori/></b-col>
-        <b-col cols="9">2 of 3</b-col>
+        <b-col cols="9"><Rekomendasi/></b-col>
       </b-row>
     </b-container>
   </div>
@@ -14,12 +14,13 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import Kategori from "@/components/Kategori.vue";
+import Rekomendasi from "@/components/Rekomendasi.vue";
 import { BContainer } from "bootstrap-vue";
 
 export default {
   name: "Home",
   components: {
-    Navbar, BContainer, Kategori, 
+    Navbar, BContainer, Kategori, Rekomendasi,
   },
 };
 </script>

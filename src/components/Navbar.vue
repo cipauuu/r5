@@ -9,15 +9,10 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="mr-5">
-          <b-nav-item href="#">Home</b-nav-item>
-          <b-nav-item href="#">Tentang Kami</b-nav-item>
+          <li class="nav-item"><router-link class="nav-link" to="/">Home</router-link></li>
+          <li class="nav-item"><router-link class="nav-link" to="/tentang-kami">Tentang Kami</router-link></li>
           <b-nav-item-dropdown text="Kategori">
-            <b-dropdown-item href="#">Aksi</b-dropdown-item>
-            <b-dropdown-item href="#">Anak-anak</b-dropdown-item>
-            <b-dropdown-item href="#">Fiksi</b-dropdown-item>
-            <b-dropdown-item href="#">Horor</b-dropdown-item>
-            <b-dropdown-item href="#">Non-aksi</b-dropdown-item>
-            <b-dropdown-item href="#">Romansa</b-dropdown-item>
+            <li v-for="value in kategori" :key="value"><router-link class="dropdown-item" :to="value.link">{{ value.nama }}</router-link></li>
         </b-nav-item-dropdown>
         </b-navbar-nav>
 
@@ -39,7 +34,7 @@
             <template #button-content>
               <em>Nama User <i class="fa fa-user" aria-hidden="true"></i></em>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <li><router-link class="dropdown-item" to="/profile">Profile</router-link></li>
             <b-dropdown-item href="#"><button class="btn btn-sm btn-danger">Sign Out</button></b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -52,6 +47,18 @@
 import { BNavbar } from "bootstrap-vue";
 
 export default {
+  data() {
+    return {
+      kategori: [
+        { nama: "Aksi", link: "/kategori/aksi" },
+        { nama: "Anak-anak", link: "/kategori/anak-anak" },
+        { nama: "Fiksi", link: "/kategori/fiksi" },
+        { nama: "Horror", link: "/kategori/horror" },
+        { nama: "Non-aksi", link: "/kategori/non-aksi" },
+        { nama: "Romansa", link: "/kategori/romansa" },
+      ],
+    };
+  },
   name: "Navbar",
   components: {
     BNavbar,
