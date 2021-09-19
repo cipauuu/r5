@@ -5,12 +5,11 @@
         <b-col v-for="value in rekomendasi" :key="value" cols="4">
           <b-card
             :title="value.judul"
-            img-src="https://picsum.photos/600/300/?image=25"
+            :img-src="value.url"
             img-alt="Image"
             img-top
             tag="article"
             style="max-width: 20rem;"
-            class="mb-2"
           >
             <b-card-text>
               {{ value.publisher }}
@@ -31,9 +30,9 @@ export default {
   data() {
     return {
       rekomendasi: [
-        { judul: "Conan", publisher: "Dadang" },
-        { judul: "One Piece", publisher: "Situmorang" },
-        { judul: "Naruto", publisher: "Agus" },
+        { judul: "Conan", publisher: "Dadang", url: "https://www.bukukita.com/babacms/displaybuku/111835_f.jpg" },
+        { judul: "One Piece", publisher: "Situmorang", url: "https://japanesestation.com/wp-content/uploads/2020/04/EU48hGrU4AcRCdo.jpg" },
+        { judul: "Naruto", publisher: "Agus", url: "https://legendofthegoldenwind.files.wordpress.com/2019/01/yellowcover.jpg?w=1400" },
       ],
     };
   },
@@ -45,4 +44,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.card-img-top{
+  height: 30vw;
+}
+</style>

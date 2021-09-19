@@ -8,8 +8,14 @@
         </b-col>
       </b-row>
       <b-row v-for="value in kategori" :key="value">
-        <b-col cols="9"><router-link class="text-dark" :to="value.link">{{ value.nama }}</router-link></b-col>
-        <b-col cols="3" class="text-right"><p>{{ value.jumlah }}</p></b-col>
+        <b-col cols="9"
+          ><router-link class="text-dark" :to="value.link">{{
+            value.nama
+          }}</router-link></b-col
+        >
+        <b-col cols="3" class="text-right"
+          ><p>{{ value.jumlah }}</p></b-col
+        >
       </b-row>
     </b-container>
   </div>
