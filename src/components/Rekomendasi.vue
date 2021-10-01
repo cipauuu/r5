@@ -2,17 +2,17 @@
   <div>
     <b-container fluid>
       <b-row>
-        <b-col v-for="value in rekomendasi" :key="value" cols="4">
+        <b-col v-for="value in rekomendasi.slice(0,4)" :key="value" cols="3" class="d-flex align-items-stretch">
           <b-card
             :title="value.judul"
-            :img-src="value.url"
+            :img-src="value.img"
             img-alt="Image"
             img-top
             tag="article"
             style="max-width: 20rem;"
           >
             <b-card-text>
-              {{ value.publisher }}
+              {{ value.kategori }}
             </b-card-text>
 
             <b-button href="#" variant="secondary">Details</b-button>
@@ -25,15 +25,20 @@
 
 <script>
 import { BContainer, BCard } from "bootstrap-vue";
+import axios from 'axios'
 
 export default {
+  mounted() {
+    axios
+      .get(
+        "https://dmujitempbagifile.s3.ap-southeast-1.amazonaws.com/buku.json"
+      )
+      .then((response) => (this.rekomendasi = response.data));
+      console.log(this.rekomendasi)
+  },
   data() {
     return {
-      rekomendasi: [
-        { judul: "Conan", publisher: "Dadang", url: "https://www.bukukita.com/babacms/displaybuku/111835_f.jpg" },
-        { judul: "One Piece", publisher: "Situmorang", url: "https://japanesestation.com/wp-content/uploads/2020/04/EU48hGrU4AcRCdo.jpg" },
-        { judul: "Naruto", publisher: "Agus", url: "https://legendofthegoldenwind.files.wordpress.com/2019/01/yellowcover.jpg?w=1400" },
-      ],
+      rekomendasi: {},
     };
   },
   name: "Navbar",
@@ -45,7 +50,7 @@ export default {
 </script>
 
 <style scoped>
-.card-img-top{
-  height: 30vw;
+.card-img-top {
+  height: 20vw;
 }
 </style>
