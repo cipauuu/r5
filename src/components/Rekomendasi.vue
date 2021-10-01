@@ -40,7 +40,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
 
 <script>
-import { BContainer, BCard } from "bootstrap-vue";
+import { BContainer, BCard, BBadge } from "bootstrap-vue";
 import axios from 'axios'
 
 export default {
@@ -74,6 +74,10 @@ export default {
 <style scoped>
 .card-img-top {
   height: 20vw;
+}
+
+.card-title{
+  font-size: 20px;
 }
 
 #refresh {
