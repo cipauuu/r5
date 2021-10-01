@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="rekomendasi" >
     <b-container fluid>
       <b-row>
         <b-col
@@ -30,8 +30,29 @@
         </b-col>
       </b-row>
     </b-container>
+    <div id="refresh">
+      <button type="button" class="btn btn-dark" v-on:click="refresh"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+    </div>
   </div>
 </template>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+
+<script>
+  const vm = new Vue({
+    el: '#rekomendasi',
+    data: {
+      name: 'Vue.js'
+    },
+    methods: {
+      refresh : function (event) {
+        alert('button is clicked')
+      }
+    }
+  })
+</script>
+
 
 <script>
 import { BContainer, BCard, BBadge } from "bootstrap-vue";
@@ -65,7 +86,18 @@ export default {
   height: 20vw;
 }
 
-.card-title{
-  font-size: 20px;
+#refresh {
+  /* display: none; Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
 }
 </style>
