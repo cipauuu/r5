@@ -15,9 +15,7 @@
             style="max-width: 20rem"
           >
             <img class="card-img-top" :src="value.img" />
-            <b-badge variant="info" class="mt-3">{{
-                    value.kategori
-                  }}</b-badge>
+            <b-badge variant="info" class="mt-3">{{ value.kategori }}</b-badge>
             <h5 class="card-title mt-2">{{ value.judul }}</h5>
             <template #footer>
               <b-row>
@@ -37,7 +35,13 @@
       </b-row>
     </b-container>
     <div id="refresh">
-      <button type="button" class="btn btn-dark" v-on:click="refresh">
+      <button
+        type="button"
+        class="btn btn-dark"
+        v-on:click="refresh"
+        v-b-tooltip.hover
+        title="Refresh rekomendasi"
+      >
         <i class="fa fa-refresh" aria-hidden="true"></i>
       </button>
     </div>
@@ -58,6 +62,7 @@ export default {
         "https://dmujitempbagifile.s3.ap-southeast-1.amazonaws.com/buku.json"
       )
       .then((response) => (this.rekomendasi = response.data));
+    console.log(this.rekomendasi);
   },
   data() {
     return {
@@ -72,8 +77,12 @@ export default {
   },
   methods: {
     refresh: function (event) {
-      alert("button is clicked");
-      console.log(this.rekomendasi);
+      let temp = this.rekomendasi;
+      this.rekomendasi = temp.sort(() => Math.random() - 0.5);
+
+      // scroll ke atas
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     },
   },
 };
@@ -84,18 +93,20 @@ export default {
   height: 20vw;
 }
 
+.card-title {
+  font-size: 20px;
+}
+
 #refresh {
-  /* display: none; Hidden by default */
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 30px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
-  border: none; /* Remove borders */
-  outline: none; /* Remove outline */
-  color: white; /* Text color */
-  cursor: pointer; /* Add a mouse pointer on hover */
-  padding: 15px; /* Some padding */
-  border-radius: 10px; /* Rounded corners */
-  font-size: 18px; /* Increase font size */
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 18px;
 }
 </style>
