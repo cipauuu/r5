@@ -40,23 +40,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
 
 <script>
-  const vm = new Vue({
-    el: '#rekomendasi',
-    data: {
-      name: 'Vue.js'
-    },
-    methods: {
-      refresh : function (event) {
-        alert('button is clicked')
-      }
-    }
-  })
-</script>
-
-
-<script>
-import { BContainer, BCard, BBadge } from "bootstrap-vue";
-import axios from "axios";
+import { BContainer, BCard } from "bootstrap-vue";
+import axios from 'axios'
 
 export default {
   mounted() {
@@ -78,6 +63,11 @@ export default {
     BCard,
     BBadge,
   },
+  methods: {
+      refresh : function (event) {
+        alert('button is clicked')
+      }
+    }
 };
 </script>
 
