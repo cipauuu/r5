@@ -187,6 +187,7 @@ export default {
     logout() {
       Cookies.remove("name");
       Cookies.remove("token");
+      Cookies.remove("cart");
       this.$router.push("/");
       location.reload();
     },

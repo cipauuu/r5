@@ -129,13 +129,16 @@ export default {
         };
 
         var itemList = this.cartCookie;
-        const addedItem = itemList.find((product) => product.item === item.item);
+        const addedItem = itemList.find(
+          (product) => product.item === item.item
+        );
         if (addedItem) {
           addedItem.jumlah += this.jumlah;
         } else {
           itemList.push(item);
         }
         Cookies.set("cart", JSON.stringify(itemList));
+        alert("Buku telah dimasukkan ke dalam keranjang");
         location.reload();
       }
     },
