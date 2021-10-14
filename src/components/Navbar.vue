@@ -181,6 +181,7 @@ export default {
   methods: {
     deleteCart() {
       Cookies.remove("cart");
+      alert("Keranjang telah dihapus");
       location.reload();
     },
     logout() {
@@ -193,9 +194,7 @@ export default {
       this.$router.push("/login");
     },
     checkout() {
-      Cookies.remove("cart");
-      alert("Checkout berhasil!");
-      location.reload();
+      this.$router.push("/cart");
     },
   },
   computed: {
