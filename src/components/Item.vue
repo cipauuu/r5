@@ -107,11 +107,11 @@ export default {
   methods: {
     kurang() {
       if (this.jumlah > 0) {
-        this.jumlah = this.jumlah - 1;
+        this.jumlah--;
       }
     },
     tambah() {
-      this.jumlah = this.jumlah + 1;
+      this.jumlah++;
     },
     addCart() {
       if (this.jumlah > 0) {
@@ -124,8 +124,12 @@ export default {
         };
 
         var itemList = this.cartCookie;
-        itemList.push(item);
-
+        const addedItem = itemList.find((product) => product.item === item.item);
+        if (addedItem) {
+          addedItem.jumlah += this.jumlah;
+        } else {
+          itemList.push(item);
+        }
         Cookies.set("cart", JSON.stringify(itemList));
         location.reload();
       }
