@@ -3,8 +3,8 @@
     <b-container fluid>
       <b-row>
         <b-col
-          v-for="value in rekomendasi.slice(0, 4)"
-          :key="value"
+          v-for="(value, index) in rekomendasi.slice(0, 4)"
+          :key="(value, index)"
           cols="3"
           class="d-flex align-items-stretch"
         >
@@ -26,7 +26,7 @@
                   </p>
                 </b-col>
                 <b-col cols="6" class="my-auto">
-                  <b-button href="#" variant="secondary">Details</b-button>
+                  <b-button @click="goToDetail(index)" variant="secondary">Details</b-button>
                 </b-col>
               </b-row>
             </template>
@@ -62,7 +62,6 @@ export default {
         "https://dmujitempbagifile.s3.ap-southeast-1.amazonaws.com/buku.json"
       )
       .then((response) => (this.rekomendasi = response.data));
-    console.log(this.rekomendasi);
   },
   data() {
     return {
@@ -83,6 +82,10 @@ export default {
       // scroll ke atas
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
+    },
+    goToDetail(x) {
+      this.$router.push("/detail?item="+x);
+      location.reload();
     },
   },
 };

@@ -43,6 +43,17 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
+          <b-button variant="warning" id="popover-card">
+            <i
+              class="fa fa-shopping-cart text-white mr-3"
+              aria-hidden="true"
+            ></i>
+            <b-badge variant="light">4</b-badge>
+          </b-button>
+          <b-popover target="popover-card" triggers="hover" placement="bottom">
+            <template #title>Keranjang Belanja</template>
+            I am popover <b>component</b> content!
+          </b-popover>
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template #button-content>
@@ -66,7 +77,7 @@
 </template>
 
 <script>
-import { BNavbar } from "bootstrap-vue";
+import { BNavbar, BButton, BBadge, BPopover } from "bootstrap-vue";
 
 export default {
   data() {
@@ -84,6 +95,9 @@ export default {
   name: "Navbar",
   components: {
     BNavbar,
+    BButton,
+    BBadge,
+    BPopover
   },
 };
 </script>
