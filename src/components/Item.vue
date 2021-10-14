@@ -118,7 +118,7 @@ export default {
         const item = {
           item: this.item,
           jumlah: this.jumlah,
-          judul: this.rekomendasi[this.item].deskripsi,
+          judul: this.rekomendasi[this.item].judul,
           img: this.rekomendasi[this.item].img,
           harga: this.rekomendasi[this.item].harga,
         };
@@ -127,8 +127,8 @@ export default {
         itemList.push(item);
 
         Cookies.set("cart", JSON.stringify(itemList));
+        location.reload();
       }
-      console.warn(this.cartCookie);
     },
   },
 };

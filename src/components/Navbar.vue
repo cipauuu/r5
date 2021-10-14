@@ -48,14 +48,38 @@
               class="fa fa-shopping-cart text-white mr-3"
               aria-hidden="true"
             ></i>
-            <b-badge variant="light">{{this.cartCookie.length}}</b-badge>
+            <b-badge variant="light">{{ this.cartCookie.length }}</b-badge>
           </b-button>
           <b-popover target="popover-card" triggers="hover" placement="bottom">
             <template #title>Keranjang Belanja</template>
             <b-container>
+              <b-row v-for="value in cartCookie" :key="value">
+                <b-col cols="3">
+                  <img width="100%" :src="value.img" />
+                </b-col>
+                <b-col cols="7">
+                  <p class="mb-0">{{ value.judul }}</p>
+                  <p class="text-warning">
+                    {{
+                      (value.harga * value.jumlah).toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })
+                    }}
+                  </p></b-col
+                >
+                <b-col cols="2"
+                  ><b-badge variant="light">{{ value.jumlah }}</b-badge></b-col
+                >
+              </b-row>
               <b-row>
-                <b-col>
-                  <p>{{this.cartCookie}}</p>
+                <b-col class="text-center">
+                  <b-button size="sm" @click="deleteCart" variant="danger" class="mr-3"
+                    ><i class="fa fa-trash" aria-hidden="true"></i>
+                  </b-button>
+                  <b-button size="sm" variant="warning" class="text-white"
+                    >Tampilkan Keranjang</b-button
+                  >
                 </b-col>
               </b-row>
             </b-container>
@@ -83,11 +107,11 @@
 </template>
 
 <script>
-import { BNavbar, BButton, BBadge, BPopover, BContainer, } from "bootstrap-vue";
+import { BNavbar, BButton, BBadge, BPopover, BContainer } from "bootstrap-vue";
 import Cookies from "js-cookie";
 
 export default {
-  mounted(){
+  mounted() {
     this.cartCookie = JSON.parse(Cookies.get("cart"));
   },
   data() {
@@ -111,6 +135,12 @@ export default {
     BPopover,
     BContainer,
   },
+  methods: {
+    deleteCart(){
+      Cookies.remove('cart')
+      location.reload();
+    }
+  }
 };
 </script>
 

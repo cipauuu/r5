@@ -7,7 +7,7 @@
           <Item />
         </b-col>
       </b-row>
-      <b-row class="justify-content-center">
+      <b-row class="mb-5 justify-content-center">
         <b-col cols="8">
           <h1 class="text-center mb-5">ANOTHER RECOMMENDATION</h1>
           <Rekomendasi />
