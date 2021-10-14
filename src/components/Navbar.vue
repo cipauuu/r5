@@ -79,7 +79,7 @@
                   <b-button v-if="this.cartCookie.length" size="sm" @click="deleteCart" variant="danger" class="button mr-3"
                     ><i class="fa fa-trash text-white mr-3" aria-hidden="true"></i> Bersihkan Keranjang
                   </b-button>
-                  <b-button v-if="this.cartCookie.length" size="sm" variant="success" class="button text-white"
+                  <b-button v-if="this.cartCookie.length" size="sm" @click="checkout" variant="success" class="button text-white"
                     >
                     Checkout {{ 
                       (totalPrice).toLocaleString("id-ID", {
@@ -151,6 +151,11 @@ export default {
   methods: {
     deleteCart(){
       Cookies.remove('cart')
+      location.reload();
+    },
+    checkout() {
+      Cookies.remove('cart')
+      alert("Checkout berhasil!");
       location.reload();
     }
   }
