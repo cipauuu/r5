@@ -43,7 +43,9 @@
                   })
                 }}
               </h1>
-              <p class="mt-5 mb-3">{{ this.rekomendasi[this.item].deskripsi }}</p>
+              <p class="mt-5 mb-3">
+                {{ this.rekomendasi[this.item].deskripsi }}
+              </p>
               <p>
                 Kategori:
                 <b-badge variant="info">{{
@@ -55,15 +57,17 @@
           <b-row class="cart-section">
             <b-col>
               <b-button @click="kurang" class="bg-white text-dark">-</b-button>
-              <span class="mx-3">{{this.jumlah}}</span>
+              <span class="mx-3">{{ this.jumlah }}</span>
               <b-button @click="tambah" class="bg-white text-dark">+</b-button>
 
               <b-button class="bg-warning mx-3">Beli Sekarang</b-button>
 
-              <b-button class="cart mx-3"><i
-              class="fa fa-shopping-cart text-white mr-3"
-              aria-hidden="true"
-            ></i></b-button>
+              <b-button @click="addCart" class="cart mx-3"
+                ><i
+                  class="fa fa-shopping-cart text-white mr-3"
+                  aria-hidden="true"
+                ></i
+              ></b-button>
             </b-col>
           </b-row>
         </b-col>
@@ -75,6 +79,7 @@
 <script>
 import { BContainer, BBreadcrumb } from "bootstrap-vue";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default {
   mounted() {
@@ -84,12 +89,14 @@ export default {
       )
       .then((response) => (this.rekomendasi = response.data));
     this.item = this.$route.query.item;
+    this.cartCookie = JSON.parse(Cookies.get("cart"));
   },
   data() {
     return {
       rekomendasi: {},
       item: null,
       jumlah: 0,
+      cartCookie: [],
     };
   },
   name: "Item",
@@ -98,14 +105,31 @@ export default {
     BBreadcrumb,
   },
   methods: {
-    kurang(){
+    kurang() {
       if (this.jumlah > 0) {
         this.jumlah = this.jumlah - 1;
       }
     },
-    tambah(){
-      this.jumlah = this.jumlah + 1
-    }
+    tambah() {
+      this.jumlah = this.jumlah + 1;
+    },
+    addCart() {
+      if (this.jumlah > 0) {
+        const item = {
+          item: this.item,
+          jumlah: this.jumlah,
+          judul: this.rekomendasi[this.item].deskripsi,
+          img: this.rekomendasi[this.item].img,
+          harga: this.rekomendasi[this.item].harga,
+        };
+
+        var itemList = this.cartCookie;
+        itemList.push(item);
+
+        Cookies.set("cart", JSON.stringify(itemList));
+      }
+      console.warn(this.cartCookie);
+    },
   },
 };
 </script>
@@ -115,18 +139,18 @@ export default {
   margin-top: 8vw;
 }
 
-button.bg-white{
-  height: 2.8vw!important;
-  width: 2.8vw!important;
+button.bg-white {
+  height: 2.8vw !important;
+  width: 2.8vw !important;
 }
 
-button.bg-warning{
-  height: 2.8vw!important;
+button.bg-warning {
+  height: 2.8vw !important;
   border-color: #ffc107 !important;
 }
 
-.cart{
-  height: 2.8vw!important;
-  width: 2.8vw!important;
+.cart {
+  height: 2.8vw !important;
+  width: 2.8vw !important;
 }
 </style>

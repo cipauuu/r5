@@ -48,11 +48,17 @@
               class="fa fa-shopping-cart text-white mr-3"
               aria-hidden="true"
             ></i>
-            <b-badge variant="light">4</b-badge>
+            <b-badge variant="light">{{this.cartCookie.length}}</b-badge>
           </b-button>
           <b-popover target="popover-card" triggers="hover" placement="bottom">
             <template #title>Keranjang Belanja</template>
-            I am popover <b>component</b> content!
+            <b-container>
+              <b-row>
+                <b-col>
+                  <p>{{this.cartCookie}}</p>
+                </b-col>
+              </b-row>
+            </b-container>
           </b-popover>
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
@@ -77,9 +83,13 @@
 </template>
 
 <script>
-import { BNavbar, BButton, BBadge, BPopover } from "bootstrap-vue";
+import { BNavbar, BButton, BBadge, BPopover, BContainer, } from "bootstrap-vue";
+import Cookies from "js-cookie";
 
 export default {
+  mounted(){
+    this.cartCookie = JSON.parse(Cookies.get("cart"));
+  },
   data() {
     return {
       kategori: [
@@ -90,6 +100,7 @@ export default {
         { nama: "Non-aksi", link: "/kategori/non-aksi" },
         { nama: "Romansa", link: "/kategori/romansa" },
       ],
+      cartCookie: [],
     };
   },
   name: "Navbar",
@@ -97,7 +108,8 @@ export default {
     BNavbar,
     BButton,
     BBadge,
-    BPopover
+    BPopover,
+    BContainer,
   },
 };
 </script>
