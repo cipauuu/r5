@@ -25,7 +25,6 @@
             </li>
           </b-nav-item-dropdown>
         </b-navbar-nav>
-
         <b-nav-form>
           <b-form-input
             size="sm"
@@ -53,9 +52,12 @@
           <b-popover target="popover-card" triggers="hover" placement="bottom">
             <template #title>Keranjang Belanja</template>
             <b-container>
-              <b-row v-for="value in cartCookie" :key="value">
+              <div v-if="!this.cartCookie.length" class="alert alert-secondary mt-3" role="alert">
+                Keranjang kosong!
+              </div>
+              <b-row v-for="value in cartCookie" :key="value" class="mb-3">
                 <b-col cols="3">
-                  <img width="100%" :src="value.img" />
+                  <img width="55px" height="70px" :src="value.img" />
                 </b-col>
                 <b-col cols="7">
                   <p class="mb-0">{{ value.judul }}</p>
@@ -66,19 +68,25 @@
                         currency: "IDR",
                       })
                     }}
-                  </p></b-col
-                >
-                <b-col cols="2"
-                  ><b-badge variant="light">{{ value.jumlah }}</b-badge></b-col
-                >
+                  </p>
+                </b-col>
+                <b-col cols="2">
+                  <b-badge variant="light">{{ value.jumlah }}</b-badge>
+                </b-col>
               </b-row>
               <b-row>
                 <b-col class="text-center">
-                  <b-button size="sm" @click="deleteCart" variant="danger" class="mr-3"
-                    ><i class="fa fa-trash" aria-hidden="true"></i>
+                  <b-button v-if="this.cartCookie.length" size="sm" @click="deleteCart" variant="danger" class="button mr-3"
+                    ><i class="fa fa-trash text-white mr-3" aria-hidden="true"></i> Bersihkan Keranjang
                   </b-button>
-                  <b-button size="sm" variant="warning" class="text-white"
-                    >Tampilkan Keranjang</b-button
+                  <b-button v-if="this.cartCookie.length" size="sm" variant="success" class="button text-white"
+                    >
+                    Checkout {{ 
+                      (totalPrice).toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })  
+                    }} </b-button
                   >
                 </b-col>
               </b-row>
@@ -111,6 +119,11 @@ import { BNavbar, BButton, BBadge, BPopover, BContainer } from "bootstrap-vue";
 import Cookies from "js-cookie";
 
 export default {
+  computed : {
+    totalPrice() {
+      return this.cartCookie.reduce((a, b) => a + b.harga*b.jumlah,0);
+    }
+  },
   mounted() {
     this.cartCookie = JSON.parse(Cookies.get("cart"));
   },
@@ -144,4 +157,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .button {
+    display: block;
+    width: 100%;
+    margin-top:10px;
+  }
+</style>
