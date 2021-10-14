@@ -35,15 +35,14 @@
       </b-row>
     </b-container>
     <div id="refresh">
-      <button
-        type="button"
-        class="btn btn-dark"
+      <b-button
+        variant="dark"
         v-on:click="refresh"
         v-b-tooltip.hover
         title="Refresh rekomendasi"
       >
         <i class="fa fa-refresh" aria-hidden="true"></i>
-      </button>
+      </b-button>
     </div>
   </div>
 </template>

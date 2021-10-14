@@ -114,7 +114,12 @@ export default {
       this.jumlah++;
     },
     addCart() {
-      if (this.jumlah > 0) {
+      if (Cookies.get("token") === undefined) {
+        alert("Login terlebih dahulu");
+        this.$router.push("/login");
+      } else if (this.jumlah === 0) {
+        alert("Jumlah barang 0");
+      } else {
         const item = {
           item: this.item,
           jumlah: this.jumlah,
