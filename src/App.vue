@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  name: 'App',
-}
+  name: "App",
+};
 </script>
 
 <style>
@@ -17,5 +17,17 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000;
+}
+
+.dark-mode {
+  background: #1a1b1d;
+}
+
+.dark {
+  color: #f3f3f3;
+}
+
+.dark hr{
+  border-color: #f3f3f3;
 }
 </style>

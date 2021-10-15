@@ -9,7 +9,7 @@
       </b-row>
       <b-row v-for="value in kategori" :key="value">
         <b-col cols="9"
-          ><router-link class="text-dark" :to="value.link">{{
+          ><router-link class="darks" :to="value.link">{{
             value.nama
           }}</router-link></b-col
         >
@@ -44,4 +44,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.darks{
+    color: #23272b;
+  }
+  .dark .darks{
+    color: #f3f3f3;
+  }
+
+</style>

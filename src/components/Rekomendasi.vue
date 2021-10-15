@@ -26,7 +26,9 @@
                   </p>
                 </b-col>
                 <b-col cols="6" class="my-auto">
-                  <b-button @click="goToDetail(index)" variant="secondary">Details</b-button>
+                  <b-button @click="goToDetail(index)" variant="secondary"
+                    >Details</b-button
+                  >
                 </b-col>
               </b-row>
             </template>
@@ -82,7 +84,7 @@ export default {
       document.documentElement.scrollTop = 0;
     },
     goToDetail(x) {
-      this.$router.push("/detail?item="+x);
+      this.$router.push("/detail?item=" + x);
       location.reload();
     },
   },
@@ -109,5 +111,8 @@ export default {
   cursor: pointer;
   border-radius: 10px;
   font-size: 18px;
+}
+.dark .card{
+  background-color: #23272b !important;
 }
 </style>

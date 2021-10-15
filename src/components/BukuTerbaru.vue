@@ -6,9 +6,8 @@
           <h3>BUKU TERBARU</h3>
         </b-col>
         <b-col cols="6" class="text-right">
-          <router-link class="text-dark" to="/buku-terbaru"
-            >view more >></router-link
-          >
+          <router-link class="darks" to="/buku-terbaru"
+            >view more >></router-link> 
         </b-col>
       </b-row>
       <hr />
@@ -119,4 +118,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .darks{
+    color: #23272b;
+  }
+  .dark .darks{
+    color: #f3f3f3;
+  }
+</style>

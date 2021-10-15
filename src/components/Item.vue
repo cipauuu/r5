@@ -170,6 +170,14 @@ export default {
   margin-top: 8vw;
 }
 
+.dark .text-warning{
+  background-color: #23272b!important;
+}
+
+.dark .breadcrumb{
+  background-color: #23272b!important;
+}
+
 button.bg-white {
   height: 2.8vw !important;
   width: 2.8vw !important;

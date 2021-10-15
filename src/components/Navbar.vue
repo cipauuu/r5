@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="light" variant="light">
+    <b-navbar class="darks" toggleable="lg" type="light" variant="light">
       <b-navbar-brand
         ><img
           @click="goHome"
@@ -45,6 +45,11 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
+          <div class="custom-control custom-checkbox mr-5 my-2">
+            <b-button @click="toggleDarkMode" id="btnDarkMode" variant="dark"
+              >Dark Mode</b-button
+            >
+          </div>
           <b-button v-if="isLogin" variant="warning" id="popover-card">
             <i
               class="fa fa-shopping-cart text-white mr-3"
@@ -151,6 +156,7 @@
 <script>
 import { BNavbar, BButton, BBadge, BPopover, BContainer } from "bootstrap-vue";
 import Cookies from "js-cookie";
+import $ from "jquery";
 
 export default {
   async mounted() {
@@ -163,6 +169,12 @@ export default {
     (await Cookies.get("cart"))
       ? (this.cartCookie = JSON.parse(Cookies.get("cart")))
       : "";
+
+    if (Cookies.get("darkMode") === "true") {
+      this.setDarkModeOn();
+    } else {
+      Cookies.set("darkMode", "false");
+    }
   },
   data() {
     return {
@@ -210,9 +222,34 @@ export default {
     checkout() {
       this.$router.push("/cart");
     },
-    goHome(){
+    goHome() {
       this.$router.push("/");
-    }
+    },
+    toggleDarkMode() {
+      if (Cookies.get("darkMode") === "true") {
+        this.setDarkModeOff();
+        Cookies.set("darkMode", "false");
+      } else if (Cookies.get("darkMode") === "false") {
+        this.setDarkModeOn();
+        Cookies.set("darkMode", "true");
+      }
+    },
+    setDarkModeOn() {
+      $(document).ready(function () {
+        $("#app").addClass("dark-mode");
+        $("div").addClass("dark");
+        $("label").addClass("text-white");
+        $("#btnDarkMode").html("Light Mode").removeClass("btn-dark").addClass("btn-light");
+      });
+    },
+    setDarkModeOff() {
+      $(document).ready(function () {
+        $("#app").removeClass("dark-mode");
+        $("div").removeClass("dark");
+        $("label").removeClass("text-white");
+        $("#btnDarkMode").html("Dark Mode").removeClass("btn-light").addClass("btn-dark");
+      });
+    },
   },
   computed: {
     namaUser() {
@@ -234,7 +271,27 @@ export default {
 .item-logout:hover {
   background: white;
 }
-.navbar-brand img:hover{
+.navbar-brand img:hover {
   cursor: pointer;
+}
+
+.dark .darks,
+.dark .navbar {
+  background-color: #23272b !important;
+}
+
+.nav-link,
+::v-deep .dropdown .nav-link {
+  color: #23272b !important;
+}
+
+.darks,
+.navbar {
+  background-color: #f3f3f3 !important;
+}
+
+.dark .nav-link,
+::v-deep .dark .dropdown .nav-link {
+  color: #f3f3f3 !important;
 }
 </style>
