@@ -1,5 +1,11 @@
 # r5
 
+## Project login (this project have login function)
+```
+email: vincentiusmandala@gmail.com
+pass: Yoda123 
+```
+
 ## Project setup
 ```
 yarn install

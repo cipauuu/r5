@@ -1,8 +1,11 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="light" variant="light">
-      <b-navbar-brand href="#"
-        ><img :src="require('@/assets/navbar.png')" style="width: 10vw"
+      <b-navbar-brand
+        ><img
+          @click="goHome"
+          :src="require('@/assets/navbar.png')"
+          style="width: 10vw"
       /></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -42,7 +45,7 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-button variant="warning" id="popover-card">
+          <b-button v-if="isLogin" variant="warning" id="popover-card">
             <i
               class="fa fa-shopping-cart text-white mr-3"
               aria-hidden="true"
@@ -112,13 +115,14 @@
             </b-container>
           </b-popover>
           <button
+            v-if="!isLogin"
             id="login"
             @click="login"
             class="btn btn-sm btn-warning text-white"
           >
             <i class="fa fa-user" aria-hidden="true"></i> Login
           </button>
-          <b-nav-item-dropdown id="nav-profile" right>
+          <b-nav-item-dropdown v-if="isLogin" right>
             <!-- Using 'button-content' slot -->
             <template #button-content>
               <em
@@ -149,13 +153,16 @@ import { BNavbar, BButton, BBadge, BPopover, BContainer } from "bootstrap-vue";
 import Cookies from "js-cookie";
 
 export default {
-  mounted() {
-    Cookies.get("token")
-      ? document.getElementById("login").remove()
-      : document.getElementById("popover-card").remove() &
-        document.getElementById("nav-profile").remove();
+  async mounted() {
+    this.$route.query.item ? (this.item = this.$route.query.item) : "";
 
-    this.cartCookie = JSON.parse(Cookies.get("cart"));
+    (await Cookies.get("token"))
+      ? (this.isLogin = true)
+      : (this.isLogin = false);
+
+    (await Cookies.get("cart"))
+      ? (this.cartCookie = JSON.parse(Cookies.get("cart")))
+      : "";
   },
   data() {
     return {
@@ -168,6 +175,8 @@ export default {
         { nama: "Romansa", link: "/kategori/romansa" },
       ],
       cartCookie: [],
+      item: null,
+      isLogin: false,
     };
   },
   name: "Navbar",
@@ -188,15 +197,22 @@ export default {
       Cookies.remove("name");
       Cookies.remove("token");
       Cookies.remove("cart");
-      this.$router.push("/");
+      this.item
+        ? this.$router.push("/detail?item=" + this.item)
+        : this.$router.push("/");
       location.reload();
     },
     login() {
-      this.$router.push("/login");
+      this.item
+        ? this.$router.push("/login?item=" + this.item)
+        : this.$router.push("/login");
     },
     checkout() {
       this.$router.push("/cart");
     },
+    goHome(){
+      this.$router.push("/");
+    }
   },
   computed: {
     namaUser() {
@@ -217,5 +233,8 @@ export default {
 }
 .item-logout:hover {
   background: white;
+}
+.navbar-brand img:hover{
+  cursor: pointer;
 }
 </style>

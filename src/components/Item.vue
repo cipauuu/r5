@@ -1,20 +1,15 @@
 <template>
-  <div>
+  <div v-if="dataReady">
     <b-row class="mb-5">
       <b-col cols="6">
         <b-breadcrumb>
-          <b-breadcrumb-item href="#home">
-            <b-icon
-              icon="house-fill"
-              scale="1.25"
-              shift-v="1.25"
-              aria-hidden="true"
-            ></b-icon>
-            Home
+          <b-breadcrumb-item @click="goHome">
+            <i class="fa fa-home" aria-hidden="true"></i> Home
           </b-breadcrumb-item>
-          <b-breadcrumb-item href="#">{{
-            this.rekomendasi[this.item].kategori
-          }}</b-breadcrumb-item>
+          <b-breadcrumb-item
+            @click="goKategori()"
+            >{{ this.rekomendasi[this.item].kategori }}</b-breadcrumb-item
+          >
           <b-breadcrumb-item active>{{
             this.rekomendasi[this.item].judul
           }}</b-breadcrumb-item>
@@ -82,13 +77,26 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export default {
-  mounted() {
-    axios
+  async mounted() {
+    await axios
       .get(
         "https://dmujitempbagifile.s3.ap-southeast-1.amazonaws.com/buku.json"
       )
       .then((response) => (this.rekomendasi = response.data));
-    this.item = this.$route.query.item;
+
+    this.dataReady = true;
+
+    this.$route.query.item
+      ? (this.item = this.$route.query.item)
+      : this.$router.push("/");
+
+    if (
+      this.rekomendasi[this.item] === "undefined" ||
+      this.rekomendasi[this.item] === undefined
+    ) {
+      this.$router.push("/");
+    }
+
     this.cartCookie = JSON.parse(Cookies.get("cart"));
   },
   data() {
@@ -97,6 +105,7 @@ export default {
       item: null,
       jumlah: 0,
       cartCookie: [],
+      dataReady: false,
     };
   },
   name: "Item",
@@ -116,7 +125,7 @@ export default {
     addCart() {
       if (Cookies.get("token") === undefined) {
         alert("Login terlebih dahulu");
-        this.$router.push("/login");
+        this.$router.push("/login?item=" + this.item);
       } else if (this.jumlah === 0) {
         alert("Jumlah barang 0");
       } else {
@@ -142,11 +151,21 @@ export default {
         location.reload();
       }
     },
+    goHome() {
+      this.$router.push("/");
+    },
+    goKategori() {
+      this.$router.push("/kategori/"+this.rekomendasi[this.item].kategori);
+    },
   },
 };
 </script>
 
 <style scoped>
+.breadcrumb-item a:hover {
+  text-decoration: none;
+}
+
 .cart-section {
   margin-top: 8vw;
 }

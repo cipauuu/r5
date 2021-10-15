@@ -75,8 +75,7 @@ export default {
   },
   methods: {
     refresh: function (event) {
-      let temp = this.rekomendasi;
-      this.rekomendasi = temp.sort(() => Math.random() - 0.5);
+      this.rekomendasi = this.rekomendasi.sort(() => Math.random() - 0.5);
 
       // scroll ke atas
       document.body.scrollTop = 0;

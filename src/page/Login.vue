@@ -59,6 +59,7 @@ import axios from "axios";
 export default {
   mounted(){
     Cookies.get('token') ? this.$router.push("/") : ''
+    this.$route.query.item ? this.item = this.$route.query.item : ''
   },
   data() {
     return {
@@ -66,6 +67,7 @@ export default {
         email: "",
         password: "",
       },
+      item: null,
     };
   },
   name: "Login",
@@ -93,7 +95,7 @@ export default {
         .then((response) => {
           Cookies.set("name", response.data.user.name);
           Cookies.set("token", response.data.token);
-          this.$router.push("/");
+          this.item ? this.$router.push("/detail?item="+this.item) : this.$router.push("/")
         })
         .catch(() => {
           alert("Kombinasi email dan password salah");
