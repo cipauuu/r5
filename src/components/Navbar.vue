@@ -45,11 +45,9 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <div class="custom-control custom-checkbox mr-5 my-2">
-            <b-button @click="toggleDarkMode" id="btnDarkMode" variant="dark"
-              >Dark Mode</b-button
-            >
-          </div>
+          <b-button @click="toggleDarkMode" id="btnDarkMode" class="mr-3" variant="dark"
+            >Dark Mode</b-button
+          >
           <b-button v-if="isLogin" variant="warning" id="popover-card">
             <i
               class="fa fa-shopping-cart text-white mr-3"
@@ -239,7 +237,10 @@ export default {
         $("#app").addClass("dark-mode");
         $("div").addClass("dark");
         $("label").addClass("text-white");
-        $("#btnDarkMode").html("Light Mode").removeClass("btn-dark").addClass("btn-light");
+        $("#btnDarkMode")
+          .html("Light Mode")
+          .removeClass("btn-dark")
+          .addClass("btn-light");
       });
     },
     setDarkModeOff() {
@@ -247,7 +248,10 @@ export default {
         $("#app").removeClass("dark-mode");
         $("div").removeClass("dark");
         $("label").removeClass("text-white");
-        $("#btnDarkMode").html("Dark Mode").removeClass("btn-light").addClass("btn-dark");
+        $("#btnDarkMode")
+          .html("Dark Mode")
+          .removeClass("btn-light")
+          .addClass("btn-dark");
       });
     },
   },
